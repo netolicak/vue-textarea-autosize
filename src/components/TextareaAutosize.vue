@@ -8,8 +8,9 @@
 <script>
 export default {
   name: 'TextareaAutosize',
+  emits: ['update:modelValue'],
   props: {
-    value: {
+    modelValue: {
       type: [String, Number],
       default: ''
     },
@@ -65,12 +66,12 @@ export default {
     }
   },
   watch: {
-    value (val) {
+    modelValue (val) {
       this.val = val
     },
     val (val) {
       this.$nextTick(this.resize)
-      this.$emit('input', val)
+      this.$emit('update:modelValue', val)
     },
     minHeight () {
       this.$nextTick(this.resize)
@@ -110,7 +111,7 @@ export default {
     }
   },
   created () {
-    this.val = this.value
+    this.val = this.modelValue
   },
   mounted () {
     this.resize()
